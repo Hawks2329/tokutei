@@ -1,30 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>データ表示</title>
+    <title>位置情報受信</title>
 </head>
 <body>
-    <h1>受信した情報</h1>
-    <div id="dataDisplay">
-        <!-- 受信した情報をここに表示します -->
-    </div>
+    <h1>受け取った位置情報</h1>
+    <p id="latitude">緯度: -</p>
+    <p id="longitude">経度: -</p>
+    <p id="altitude">高度: -</p>
+    <p id="timestamp">取得時間: -</p>
 
     <script>
-        fetch('/api', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ message: 'ここに受け取った情報を表示します' })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // サーバーからの応答を表示
-            document.getElementById('dataDisplay').innerText = JSON.stringify(data, null, 2);
-        })
-        .catch(error => {
-            console.error('エラーが発生しました:', error);
-        });
+        // URLからクエリパラメータを取得
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // クエリパラメータから位置情報データを取得
+        const latitude = urlParams.get('latitude');
+        const longitude = urlParams.get('longitude');
+        const altitude = urlParams.get('altitude');
+        const timestamp = urlParams.get('timestamp');
+
+        // 位置情報を表示
+        if (latitude !== null) {
+            document.getElementById('latitude').textContent = `緯度: ${latitude}`;
+        }
+        if (longitude !== null) {
+            document.getElementById('longitude').textContent = `経度: ${longitude}`;
+        }
+        if (altitude !== null) {
+            document.getElementById('altitude').textContent = `高度: ${altitude}`;
+        }
+        if (timestamp !== null) {
+            document.getElementById('timestamp').textContent = `取得時間: ${new Date(timestamp).toLocaleString()}`;
+        }
     </script>
 </body>
 </html>
