@@ -11,16 +11,12 @@
     <p id="timestamp">取得時間: -</p>
 
     <script>
-        // URLからクエリパラメータを取得
         const urlParams = new URLSearchParams(window.location.search);
-
-        // クエリパラメータから位置情報データを取得
         const latitude = urlParams.get('latitude');
         const longitude = urlParams.get('longitude');
         const altitude = urlParams.get('altitude');
         const timestamp = urlParams.get('timestamp');
 
-        // 位置情報を表示
         if (latitude !== null) {
             document.getElementById('latitude').textContent = `緯度: ${latitude}`;
         }
@@ -31,7 +27,7 @@
             document.getElementById('altitude').textContent = `高度: ${altitude}`;
         }
         if (timestamp !== null) {
-            document.getElementById('timestamp').textContent = `取得時間: ${new Date(timestamp).toLocaleString()}`;
+            document.getElementById('timestamp').textContent = `取得時間: ${new Date(Number(timestamp)).toLocaleString()}`;
         }
     </script>
 </body>
